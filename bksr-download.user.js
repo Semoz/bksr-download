@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         一个从表格下载csv的插件
 // @namespace    https://semoz.github.io/bksr-download-csv
-// @version      0.1
+// @version      0.2
 // @description  download csv
 // @author       Semoz
 // @match        *://*/main_colors/system_index*
@@ -30,6 +30,10 @@
                     for (var j = 0; j < spans.length; j++) {
                         // 将小写字母转换为中文
                         var text = transformToChinese(spans[j].innerText.trim());
+                        // 如果是身份证号码，用双引号括起来
+                        if (isChineseIDCardNumber(text)) {
+                            text = '"' + text + '"';
+                        }
                         rowData.push(text);
                     }
 
@@ -74,6 +78,13 @@
             // 此处添加您的字母到中文的转换逻辑
             // 这里提供一个简单的例子，将小写字母 a 转换为 "中文a"
             return text.replace(/,/g, "，");
+        }
+
+        // 判断是否为中国身份证号码
+        function isChineseIDCardNumber(text) {
+            // 中国身份证号码正则表达式
+            var regex = /^[1-9]\d{5}(19|20)\d{2}(0[1-9]|1[0-2])(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
+            return regex.test(text);
         }
     }
 
