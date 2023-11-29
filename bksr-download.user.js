@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         一个从表格下载csv的插件
 // @namespace    https://semoz.github.io/bksr-download-csv
-// @version      0.2
+// @version      0.3
 // @description  download csv
 // @author       Semoz
 // @match        *://*/main_colors/system_index*
@@ -32,7 +32,7 @@
                         var text = transformToChinese(spans[j].innerText.trim());
                         // 如果是身份证号码，用双引号括起来
                         if (isChineseIDCardNumber(text)) {
-                            text = '"' + text + '"';
+                            text = '"身份证：' + text + '"';
                         }
                         rowData.push(text);
                     }
